@@ -52,7 +52,7 @@ All submissions should use Dai, interact with a CDP, or somehow support the wide
 A non exhaustive list of addresses, github repos/documentation, and tools for development in the Maker ecosystem:
 
 * [Getting Started With Maker](https://www.reddit.com/r/MakerDAO/comments/8jsalu/getting_started_with_maker/)
-* [Resources and Tools and Contracts](LOCAL)
+* [Resources and Tools and Contracts](https://source.deco.network/rich/challenge-hacksummit-MakerDAO/src/branch/master/Resources%20and%20Tools.md)
 * [MakerDao Articles, Blog Posts and Tutorials](https://www.reddit.com/r/MakerDAO/comments/8k8h51/makerdao_articles_blog_posts_and_tutorials/)
 
 For questions about the specific challenges please message @rich.brown at the [chat.makerdao.com](https://chat.makerdao.com/home).
