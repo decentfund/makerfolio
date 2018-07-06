@@ -1,3 +1,69 @@
+Makerfolio
+========
+
+## Problems definition
+- Current MakerDAO UI is pretty difficult to read and use.
+- There's lack of critical user notifications.
+- No way to see useful historical CDP information.
+![](https://i.imgur.com/E9vGD74.jpg)
+- No way to understand you perfomance
+- No way to simulate system parameters changes
+
+## User behaviour
+User imports CDP through form using CDP id or address
+User can see status of particular CDP in a clear visual form
+User can set alert for liquidation price per CDP
+User can see history for CDP in a clear textual way
+User can see useful statistics for his CDP
+User can hide and display app clicking tray icon
+User sees list of imported CBDs
+
+User sees global status of DAI system
+Tray icon displays overall status
+
+## User scenarios
+as a user
+- I can import CDP using its id or ethereum address
+- On a main screen I see brief statistics for my CDPs.
+- First I check oracle's ETH / USD price, then I refer to my CDPs liquidation price and how far I am.
+- I also verify how much stability debt in DAI I already have and how much of PETH and DAI I can withdraw from the contract.
+- I can view history and in-details stats for my CDP.
+- History is dispayed in a table view in the following format:
+
+![](https://i.imgur.com/z4rrNaF.jpg)
+- Date of the operation with tx etherscan link
+- Type of operation (DRAW, LOCK, WIPE, FREE)
+- Amount
+- Price of ETH
+- Sum in USD
+
+- I can change final price in USD for any type of operation and mark a history record as a margin action (meaning inner speculation without external capital investment)
+- I see additional perfomance statistics such as my CDP invesment evaluation using current price, my actual investment in usd, what's my margin gain, my speculative earnings, what ethereum price should be to pay off CDP
+- I can set, change and delete an alert for liquidation price and receive it as a desktop notification
+- I can change oracle price to model my stats by that price and I can reset it to actual SC
+
+## Challenge details
+
+### The application should:
+
+- provide a highly visible display of both the Liquidation Price and/or the Collateralization Ratio of the chosen CDP
+- update every 30 seconds or so
+- provide links to the specific CDP page at https://mkr.tools/cdp/
+https://mkr.tools/cdp/2419 as example
+- have some form of alerting mechanisms (email, pop-up, flashing red icons, etc)
+
+### Nice to haves:
+
+- Basic graphing of CDP history
+- Show text history of CDP transactions
+- Support multiple CDPs
+
+----
+
+*The application is built as a submission for Deconet hackathon and MakerDAO project*
+https://source.deco.network/rich/challenge-hacksummit-MakerDAO
+
+
 # challenge-hacksummit-MakerDAO
 
 
