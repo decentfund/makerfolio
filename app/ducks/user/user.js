@@ -1,11 +1,10 @@
-import { Set } from 'immutable';
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { AddCdpId } from './ActionTypes';
 
-const cdpIds = (state = Set([]), action) => {
+const cdpIds = (state = [], action) => {
   switch (action.type) {
     case AddCdpId:
-      return state.add(action.cdpId);
+      return Array.from(Set(state).add(action.cdpId));
     default:
       return state;
   }
