@@ -15,7 +15,7 @@ export default class Home extends Component<Props> {
           <h2>Home hello</h2>
           <Link to="/addCDP">Add CPD</Link>
           <br />
-          <Link to="/counter">to Counter</Link>
+          <Link to="/cdpHistory">CDP History</Link>
         </div>
       </div>
     );

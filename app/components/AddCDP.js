@@ -16,9 +16,6 @@ export default class AddCDP extends Component<Props> {
       <div>
         <div className={styles.container} data-tid="container">
           <p>Add CDP Here</p>
-          <br />
-          <br />
-          <br />
           <input
             type="text"
             placeholder="Enter CPD"
