@@ -5,17 +5,15 @@ import styles from './Home.css';
 
 type Props = {};
 
-export default class Home extends Component<Props> {
+export default class AddCDP extends Component<Props> {
   props: Props;
 
   render() {
     return (
       <div>
         <div className={styles.container} data-tid="container">
-          <h2>Home hello</h2>
-          <Link to="/addCDP">Add CPD</Link>
-          <br />
-          <Link to="/counter">to Counter</Link>
+          <h2>Add CDP Here</h2>
+          <Link to="/counter">Add CPD here kanna</Link>
         </div>
       </div>
     );
