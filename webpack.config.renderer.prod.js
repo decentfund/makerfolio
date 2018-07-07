@@ -59,44 +59,6 @@ export default merge.smart(baseConfig, {
           }
         })
       },
-      // Add SASS support  - compile all .global.scss files and pipe it to style.css
-      {
-        test: /\.global\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true
-              }
-            },
-            {
-              loader: 'sass-loader'
-            }
-          ],
-          fallback: 'style-loader'
-        })
-      },
-      // Add SASS support  - compile all other .scss files and pipe it to style.css
-      {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                minimize: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]__[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'sass-loader'
-            }
-          ]
-        })
-      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
