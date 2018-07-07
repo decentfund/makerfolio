@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AddCDP from '../components/AddCDP';
-import * as CounterActions from '../actions/counter';
+import * as UserActions from '../actions/user';
 
 function mapStateToProps(state) {
   return {
@@ -10,7 +10,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(CounterActions, dispatch);
+  return bindActionCreators(UserActions, dispatch);
 }
 
 export default connect(
