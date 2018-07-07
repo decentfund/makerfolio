@@ -16,6 +16,8 @@ export default class Home extends Component<Props> {
           <Link to="/addCDP">Add CPD</Link>
           <br />
           <Link to="/counter">to Counter</Link>
+          <br />
+          <Link to="/graphql">to GraphQL</Link>
         </div>
       </div>
     );

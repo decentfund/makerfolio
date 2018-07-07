@@ -13,7 +13,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(UserActions, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddCDP);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCDP);
