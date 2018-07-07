@@ -19,11 +19,15 @@ export default class AddCDP extends Component<Props> {
           <br />
           <br />
           <br />
-          <input type="text" placeholder="Enter CPD" />
+          <input
+            type="text"
+            placeholder="Enter CPD"
+            onChange={e => this.setState({ cpdId: e.target.value })}
+          />
           <input
             type="button"
             value="Add CPD"
-            onClick={() => addCdpIdToUser('abcd')}
+            onClick={() => addCdpIdToUser(this.state.cpdId)}
           />
         </div>
       </div>
