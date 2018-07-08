@@ -7,7 +7,6 @@ import { Switch, Route } from 'react-router';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
-import GraphQL from './components/GraphQL';
 import AddCDPPage from './containers/AddCDPPage';
 
 const client = new ApolloClient({
@@ -19,7 +18,6 @@ export default () => (
     <App>
       <Switch>
         <Route path="/counter" component={CounterPage} />
-        <Route path="/graphql" component={GraphQL} />
         <Route path="/addCDP" component={AddCDPPage} />
         <Route path="/" component={HomePage} />
       </Switch>

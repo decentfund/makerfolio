@@ -1,9 +1,8 @@
-// @flow
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-class GraphQL extends Component<Props> {
+class CDPListItem extends Component<Props> {
   props: Props;
 
   render() {
@@ -17,21 +16,31 @@ class GraphQL extends Component<Props> {
     }
 
     // 3
-    const cdpId = this.props.feedCDP.getCup.id;
-    const cdpTime = this.props.feedCDP.getCup.time;
+    const {
+      feedCDP: {
+        getCup: { id, art, ink, ratio, pip, tab }
+      }
+    } = this.props;
+    const liq = pip / ratio * 150;
+    const dai = tab / 1.5 - art;
+    const peth = dai / pip * 1.5;
     return (
       <div>
-        <p>GraphQL:</p>
-        <p>ID: {cdpId}</p>
-        <p>Time: {cdpTime}</p>
+        <p>ID: {id}</p>
+        <p>Debt: {art} DAI</p>
+        <p>Locked: {ink} PETH</p>
+        <p>Liquidation price: {liq}</p>
+        <p>
+          Dai to withdraw: {dai} Peth to free: {peth}
+        </p>
       </div>
     );
   }
 }
 
 export const FEED_CDP = gql`
-  query feedCDP {
-    getCup(id: 3) {
+  query feedCDP($id: Int!) {
+    getCup(id: $id) {
       art
       block
       deleted
@@ -57,4 +66,7 @@ export const FEED_CDP = gql`
   }
 `;
 
-export default graphql(FEED_CDP, { name: 'feedCDP' })(GraphQL);
+export default graphql(FEED_CDP, {
+  name: 'feedCDP',
+  options: ({ id }) => ({ variables: { id: parseInt(id, 10) } })
+})(CDPListItem);
