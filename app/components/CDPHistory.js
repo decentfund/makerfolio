@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import moment from 'moment';
+import CDPHistoryRecord from './CDPHistoryRecord';
 
 // eslint-disable-next-line prefer-destructuring
 const shell = require('electron').shell;
@@ -38,6 +38,7 @@ export default class CDPHistory extends Component<Props> {
                 <th>Amount</th>
                 <th>Price of Ethereum(USD)</th>
                 <th>Sum of Operation(USD)</th>
+                <th>Margin</th>
               </tr>
             </thead>
             <tbody>
@@ -47,24 +48,10 @@ export default class CDPHistory extends Component<Props> {
                     ['OPEN', 'WIPE', 'DRAW', 'FREE', 'LOCK'].indexOf(a.act) >= 0
                 )
                 .map(action => (
-                  <tr>
-                    <td>
-                      <a
-                        href={getLink(action.tx)}
-                        onClick={event => this.handleTxClick(event, action.tx)}
-                      >
-                        {moment(action.time).format('DD-MM-YYYY HH:mm')}
-                      </a>
-                    </td>
-                    <td>{action.act}</td>
-                    <td>{action.arg}</td>
-                    <td>{action.pip} USD</td>
-                    <td>
-                      {['DRAW', 'WIPE'].indexOf(action.act) >= 0
-                        ? action.arg
-                        : parseFloat(action.arg) * parseFloat(action.pip)}
-                    </td>
-                  </tr>
+                  <CDPHistoryRecord
+                    action={action}
+                    onTxClick={this.handleTxClick}
+                  />
                 ))}
             </tbody>
           </table>
