@@ -1,4 +1,4 @@
-import { MARK_MARGIN } from '../actions/transactions';
+import { MARK_MARGIN, CHANGE_PRICE } from '../actions/transactions';
 
 export default function transactions(state = {}, action) {
   // set a breakpoint at this line
@@ -13,6 +13,15 @@ export default function transactions(state = {}, action) {
         [action.tx]: {
           ...state[action.tx],
           margin
+        }
+      };
+    }
+    case CHANGE_PRICE: {
+      return {
+        ...state,
+        [action.tx]: {
+          ...state[action.tx],
+          price: action.value
         }
       };
     }

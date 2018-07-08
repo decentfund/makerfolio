@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { markMargin } from '../actions/transactions';
+import { markMargin, changePrice } from '../actions/transactions';
 
 const getLink = tx => `https://etherscan.io/tx/${tx}`;
 
@@ -17,14 +17,25 @@ type Props = {
     margin?: boolean
   },
   markMargin: (tx: string) => void,
+  changePrice: (tx: string, value: string) => void,
   onTxClick: (event: any, tx: string) => *
+};
+
+const renderSum = (action, transaction) => {
+  if (['DRAW', 'WIPE'].indexOf(action.act) >= 0) return action.arg;
+
+  if (action.act === 'LOCK')
+    return parseFloat(transaction.price || action.arg) * parseFloat(action.pip);
+
+  return parseFloat(action.arg) * parseFloat(action.pip) || '';
 };
 
 const CDPHistoryRecord = ({
   action,
   transaction,
   markMargin, // eslint-disable-line no-shadow
-  onTxClick
+  onTxClick,
+  changePrice // eslint-disable-line no-shadow
 }: Props) => (
   <tr>
     <td>
@@ -37,12 +48,19 @@ const CDPHistoryRecord = ({
     </td>
     <td>{action.act}</td>
     <td>{action.arg}</td>
-    <td>{action.pip} USD</td>
     <td>
-      {['DRAW', 'WIPE'].indexOf(action.act) >= 0
-        ? action.arg
-        : parseFloat(action.arg) * parseFloat(action.pip) || ''}
+      {action.act !== 'LOCK' ? (
+        action.pip
+      ) : (
+        <input
+          value={transaction.price}
+          placeholder={action.pip}
+          onChange={event => changePrice(action.tx, event.target.value)}
+        />
+      )}{' '}
+      USD
     </td>
+    <td>{renderSum(action, transaction)}</td>
     <td>
       {action.act === 'LOCK' ? (
         <input
@@ -59,4 +77,6 @@ const mapStateToProps = (state, { action }) => ({
   transaction: state.transactions[action.tx] || {}
 });
 
-export default connect(mapStateToProps, { markMargin })(CDPHistoryRecord);
+export default connect(mapStateToProps, { markMargin, changePrice })(
+  CDPHistoryRecord
+);
