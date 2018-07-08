@@ -19,7 +19,9 @@ class Home extends Component<Props> {
       <div>
         <div className={styles.container} data-tid="container">
           <h2>Home hello</h2>
-          <Link to="/addCDP">Add CPD</Link>
+          <Link to="/addCDP">Add CDP</Link>
+          <br />
+          <Link to="/setLiquidationPrice">Set Liquidation Price</Link>
           <br />
           <Link to="/cdpHistory">CDP History</Link>
           <br />
