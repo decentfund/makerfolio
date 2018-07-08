@@ -8,14 +8,15 @@ type Props = {
   dai: number,
   peth: number,
   art: string,
-  ink: string
+  ink: string,
+  onDeleteClick: () => void
 };
 
 export default class CDPDetail extends Component<Props> {
   props: Props;
 
   render() {
-    const { liq, dai, peth, art, ink } = this.props;
+    const { liq, dai, peth, art, ink, onDeleteClick } = this.props;
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -25,6 +26,7 @@ export default class CDPDetail extends Component<Props> {
         </div>
         <div className={styles.container} data-tid="container">
           <p>CDP Detail</p>
+          <button onClick={onDeleteClick}>Delete</button>
           <div>
             <p>liquidation price: {liq} USD/ETH</p>
             <p>Amount of DAI user can withdraw: {dai} DAI</p>

@@ -23,6 +23,8 @@ class Home extends Component<Props> {
           <br />
           <Link to="/setLiquidationPrice">Set Liquidation Price</Link>
           <br />
+          <Link to="/cdpDetail">CDP Detail</Link>
+          <br />
           <Link to="/cdpHistory">CDP History</Link>
           <br />
           <Link to="/counter">to Counter</Link>

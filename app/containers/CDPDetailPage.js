@@ -1,12 +1,16 @@
 // @flow
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import CDPDetail from '../components/CDPDetail';
 import CDPHistory from './CDPHistoryPage';
 import { getLiqPrice, getDaiToWithdraw, getPethToFree } from '../utils/cdp';
+import { removeCdpIdFromUser } from '../actions/user';
 
 type Props = {
+  removeCdpIdFromUser: (cpdId: string) => void,
   feedCDP: {
     loading: boolean,
     error: ?Object,
@@ -18,11 +22,36 @@ type Props = {
       tab: string,
       id: number
     }
+  },
+  match: {
+    params: {
+      id: string
+    }
   }
 };
 
 class CDPDetailPage extends Component<Props> {
   props: Props;
+
+  static contextTypes = {
+    router: PropTypes.shape({
+      history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+        replace: PropTypes.func.isRequired
+      }).isRequired,
+      staticContext: PropTypes.object
+    }).isRequired
+  };
+
+  handleDeleteCdpClick = () => {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    this.props.removeCdpIdFromUser(id);
+    this.context.router.history.push('/');
+  };
 
   render() {
     if (this.props.feedCDP && this.props.feedCDP.loading) {
@@ -52,6 +81,7 @@ class CDPDetailPage extends Component<Props> {
           peth={peth}
           dai={dai}
           id={id}
+          onDeleteClick={this.handleDeleteCdpClick}
         />
         <CDPHistory id={id} />
       </div>
@@ -87,11 +117,19 @@ export const FEED_CDP = gql`
   }
 `;
 
-export default graphql(FEED_CDP, {
-  name: 'feedCDP',
-  options: ({
-    match: {
-      params: { id }
-    }
-  }) => ({ variables: { id: parseInt(id, 10) || 2377 } })
-})(CDPDetailPage);
+function mapStateToProps(state) {
+  return {
+    counter: state.counter
+  };
+}
+
+export default connect(mapStateToProps, { removeCdpIdFromUser })(
+  graphql(FEED_CDP, {
+    name: 'feedCDP',
+    options: ({
+      match: {
+        params: { id }
+      }
+    }) => ({ variables: { id: parseInt(id, 10) } })
+  })(CDPDetailPage)
+);
