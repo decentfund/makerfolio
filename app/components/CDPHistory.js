@@ -1,73 +1,73 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Home.css';
+import moment from 'moment';
 
-type Props = {};
+// eslint-disable-next-line prefer-destructuring
+const shell = require('electron').shell;
+
+type Props = {
+  actions: Array<{
+    act: 'OPEN' | 'WIPE' | 'DRAW' | 'FREE' | 'LOCK' | 'SHUT',
+    arg: string,
+    time: string,
+    pip: string,
+    tx: string
+  }>
+};
+
+const getLink = tx => `https://etherscan.io/tx/${tx}`;
 
 export default class CDPHistory extends Component<Props> {
   props: Props;
 
+  handleTxClick = (event: any, tx: string) => {
+    event.preventDefault();
+    shell.openExternal(getLink(tx));
+  };
+
   render() {
     return (
-      <div>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
-        </div>
-        <div className={styles.container} data-tid="container">
-          <p>CDP History</p>
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Type of Operation</th>
-                  <th>Value of Operation</th>
-                  <th>Currency of Operation</th>
-                  <th>Price of Ethereum(USD)</th>
-                  <th>Sum of Operation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>LOCK</td>
-                  <td>10</td>
-                  <td>PETH</td>
-                  <td>10 USD</td>
-                  <td>20</td>
-                </tr>
-                <tr>
-                  <td>WIPE</td>
-                  <td>20</td>
-                  <td>DAI</td>
-                  <td>10 USD</td>
-                  <td>20</td>
-                </tr>
-                <tr>
-                  <td>DRAW</td>
-                  <td>15</td>
-                  <td>PETH</td>
-                  <td>10 USD</td>
-                  <td>30</td>
-                </tr>
-                <tr>
-                  <td>FREE</td>
-                  <td>80</td>
-                  <td>DAI</td>
-                  <td>10 USD</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>BITE</td>
-                  <td>10</td>
-                  <td>PETH</td>
-                  <td>10 USD</td>
-                  <td>20</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div data-tid="history">
+        <p>CDP History</p>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type of Operation</th>
+                <th>Amount</th>
+                <th>Price of Ethereum(USD)</th>
+                <th>Sum of Operation(USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.actions
+                .filter(
+                  a =>
+                    ['OPEN', 'WIPE', 'DRAW', 'FREE', 'LOCK'].indexOf(a.act) >= 0
+                )
+                .map(action => (
+                  <tr>
+                    <td>
+                      <a
+                        href={getLink(action.tx)}
+                        onClick={event => this.handleTxClick(event, action.tx)}
+                      >
+                        {moment(action.time).format('DD-MM-YYYY HH:mm')}
+                      </a>
+                    </td>
+                    <td>{action.act}</td>
+                    <td>{action.arg}</td>
+                    <td>{action.pip} USD</td>
+                    <td>
+                      {['DRAW', 'WIPE'].indexOf(action.act) >= 0
+                        ? action.arg
+                        : parseFloat(action.arg) * parseFloat(action.pip)}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
       </div>
     );
