@@ -21,6 +21,10 @@ class Home extends Component<Props> {
           <h2>Home hello</h2>
           <Link to="/addCDP">Add CPD</Link>
           <br />
+          <Link to="/cdpHistory">CDP History</Link>
+          <br />
+          <Link to="/cdpDetail">CDP Detail</Link>
+          <br />
           <Link to="/counter">to Counter</Link>
           <br />
           <Link to="/graphql">to GraphQL</Link>

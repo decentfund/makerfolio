@@ -21,9 +21,9 @@ class CDPListItem extends Component<Props> {
         getCup: { id, art, ink, ratio, pip, tab }
       }
     } = this.props;
-    const liq = pip / ratio * 150;
+    const liq = (pip / ratio) * 150;
     const dai = tab / 1.5 - art;
-    const peth = dai / pip * 1.5;
+    const peth = (dai / pip) * 1.5;
     return (
       <div>
         <p>ID: {id}</p>

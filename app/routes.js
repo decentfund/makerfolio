@@ -8,6 +8,8 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import AddCDPPage from './containers/AddCDPPage';
+import CDPHistoryPage from './containers/CDPHistoryPage';
+import CDPDetailPage from './containers/CDPDetailPage';
 
 const client = new ApolloClient({
   uri: 'https://graphql.makerdao.com/v1'
@@ -18,6 +20,8 @@ export default () => (
     <App>
       <Switch>
         <Route path="/counter" component={CounterPage} />
+        <Route path="/cdpHistory" component={CDPHistoryPage} />
+        <Route path="/cdpDetail" component={CDPDetailPage} />
         <Route path="/addCDP" component={AddCDPPage} />
         <Route path="/" component={HomePage} />
       </Switch>

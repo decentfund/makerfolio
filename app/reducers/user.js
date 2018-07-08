@@ -1,3 +1,4 @@
+// @flow
 import { ADD_CDP_ID_TO_USER } from '../actions/user';
 
 export default function cpdIds(state = [], action) {
