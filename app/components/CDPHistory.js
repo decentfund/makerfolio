@@ -8,7 +8,7 @@ const shell = require('electron').shell;
 type Props = {
   actions: Array<{
     act: 'OPEN' | 'WIPE' | 'DRAW' | 'FREE' | 'LOCK' | 'SHUT',
-    arg: string,
+    arg: ?string,
     time: string,
     pip: string,
     tx: string
@@ -50,6 +50,7 @@ export default class CDPHistory extends Component<Props> {
                 .map(action => (
                   <CDPHistoryRecord
                     action={action}
+                    key={action.tx}
                     onTxClick={this.handleTxClick}
                   />
                 ))}

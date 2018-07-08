@@ -8,7 +8,7 @@ const getLink = tx => `https://etherscan.io/tx/${tx}`;
 type Props = {
   action: {
     act: 'OPEN' | 'WIPE' | 'DRAW' | 'FREE' | 'LOCK' | 'SHUT',
-    arg: string,
+    arg: ?string,
     time: string,
     pip: string,
     tx: string
@@ -41,7 +41,7 @@ const CDPHistoryRecord = ({
     <td>
       {['DRAW', 'WIPE'].indexOf(action.act) >= 0
         ? action.arg
-        : parseFloat(action.arg) * parseFloat(action.pip)}
+        : parseFloat(action.arg) * parseFloat(action.pip) || ''}
     </td>
     <td>
       {action.act === 'LOCK' ? (

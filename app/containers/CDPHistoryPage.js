@@ -11,7 +11,7 @@ type Props = {
     allCupActs?: {
       nodes: Array<{
         act: 'OPEN' | 'WIPE' | 'DRAW' | 'FREE' | 'LOCK' | 'SHUT',
-        arg: string,
+        arg: ?string,
         time: string,
         pip: string
       }>
