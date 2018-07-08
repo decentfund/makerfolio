@@ -10,8 +10,13 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
+import { app, Menu, Tray, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+
+const path = require('path');
+
+const iconPath = path.join(__dirname, 'makerdao_tray.png');
+let tray = null;
 
 let mainWindow = null;
 
@@ -25,7 +30,6 @@ if (
   process.env.DEBUG_PROD === 'true'
 ) {
   require('electron-debug')();
-  const path = require('path');
   const p = path.join(__dirname, '..', 'app', 'node_modules');
   require('module').globalPaths.push(p);
 }
@@ -84,4 +88,36 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+
+  mainWindow.on('minimize', event => {
+    event.preventDefault();
+    mainWindow.hide();
+  });
+
+  mainWindow.on('close', event => {
+    if (!app.isQuiting) {
+      event.preventDefault();
+      mainWindow.hide();
+    }
+    return false;
+  });
+
+  tray = new Tray(iconPath);
+  tray.setToolTip('Makerfolio');
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show App',
+      click: () => {
+        mainWindow.show();
+      }
+    },
+    {
+      label: 'Quit',
+      click: () => {
+        app.isQuiting = true;
+        app.quit();
+      }
+    }
+  ]);
+  tray.setContextMenu(contextMenu);
 });
