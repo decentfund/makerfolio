@@ -23,6 +23,7 @@ export default () => (
         <Route path="/cdpHistory" component={CDPHistoryPage} />
         <Route path="/cdpDetail" component={CDPDetailPage} />
         <Route path="/addCDP" component={AddCDPPage} />
+        <Route path="/cdp/:id" component={CDPDetailPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </App>
