@@ -17,6 +17,12 @@ export default class AddCDP extends Component<Props> {
   addCdpIdToUser() {
     this.props.addCdpIdToUser(this.state.cpdId);
     this.setState({ cpdId: '' });
+    const myNotification = new Notification('Yo', {
+      body: 'New CDP Added'
+    });
+    myNotification.onclick = () => {
+      console.log('Notification clicked');
+    };
   }
 
   render() {
