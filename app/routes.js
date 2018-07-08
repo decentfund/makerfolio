@@ -11,6 +11,7 @@ import AddCDPPage from './containers/AddCDPPage';
 import SetLiquidationPricePage from './containers/SetLiquidationPricePage';
 import CDPHistoryPage from './containers/CDPHistoryPage';
 import CDPDetailPage from './containers/CDPDetailPage';
+import CDPListPage from './containers/CDPListPage';
 
 const client = new ApolloClient({
   uri: 'https://graphql.makerdao.com/v1'
@@ -23,6 +24,7 @@ export default () => (
         <Route path="/counter" component={CounterPage} />
         <Route path="/cdpHistory" component={CDPHistoryPage} />
         <Route path="/cdpDetail" component={CDPDetailPage} />
+        <Route path="/cdpList" component={CDPListPage} />
         <Route path="/addCDP" component={AddCDPPage} />
         <Route path="/setLiquidationPrice" omponent={SetLiquidationPricePage} />
         <Route path="/cdp/:id" component={CDPDetailPage} />

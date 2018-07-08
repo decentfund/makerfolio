@@ -41,15 +41,14 @@ class CDPListItem extends Component<Props> {
     const dai = getDaiToWithdraw({ tab, art });
     const peth = getPethToFree({ dai, pip });
     return (
-      <div onClick={this.handleClick} role="presentation">
-        <p>ID: {id}</p>
-        <p>Debt: {art} DAI</p>
-        <p>Locked: {ink} PETH</p>
-        <p>Liquidation price: {liq}</p>
-        <p>
-          Dai to withdraw: {dai} Peth to free: {peth}
-        </p>
-      </div>
+      <tr onClick={this.handleClick} role="presentation">
+        <td>{id}</td>
+        <td>{art} DAI</td>
+        <td>{dai} DAI</td>
+        <td>{ink} PETH</td>
+        <td>{peth}</td>
+        <td>{liq}</td>
+      </tr>
     );
   }
 }
