@@ -15,7 +15,7 @@ import MenuBuilder from './menu';
 
 const path = require('path');
 
-const iconPath = path.join(__dirname, 'makerdao_tray.png');
+const iconPath = path.join(__dirname, 'ico/iconHighlight@2x.png');
 let tray = null;
 
 let mainWindow = null;
