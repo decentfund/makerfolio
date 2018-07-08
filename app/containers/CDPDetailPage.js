@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import CDPDetail from '../components/CDPDetail';
+import CDPHistory from './CDPHistoryPage';
 import { getLiqPrice, getDaiToWithdraw, getPethToFree } from '../utils/cdp';
 
 type Props = {
@@ -14,7 +15,8 @@ type Props = {
       ink: string,
       ratio: string,
       pip: string,
-      tab: string
+      tab: string,
+      id: number
     }
   }
 };
@@ -37,11 +39,23 @@ class CDPDetailPage extends Component<Props> {
     )
       return <div>Error</div>;
 
-    const { art, ink, ratio, pip, tab } = this.props.feedCDP.getCup;
+    const { art, ink, ratio, pip, tab, id } = this.props.feedCDP.getCup;
     const liq = getLiqPrice({ pip, ratio });
     const dai = getDaiToWithdraw({ tab, art });
     const peth = getPethToFree({ dai, pip });
-    return <CDPDetail liq={liq} art={art} ink={ink} peth={peth} dai={dai} />;
+    return (
+      <div>
+        <CDPDetail
+          liq={liq}
+          art={art}
+          ink={ink}
+          peth={peth}
+          dai={dai}
+          id={id}
+        />
+        <CDPHistory id={id} />
+      </div>
+    );
   }
 }
 
@@ -62,7 +76,7 @@ export const FEED_CDP = gql`
       ratio
       tab
       time
-      actions(first: 10) {
+      actions {
         totalCount
         pageInfo {
           hasNextPage

@@ -11,7 +11,7 @@ type Props = {
   ink: string
 };
 
-export default class CDPHistory extends Component<Props> {
+export default class CDPDetail extends Component<Props> {
   props: Props;
 
   render() {
