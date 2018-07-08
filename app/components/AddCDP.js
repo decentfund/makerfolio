@@ -10,9 +10,16 @@ type Props = {
 export default class AddCDP extends Component<Props> {
   props: Props;
 
-  render() {
-    const { addCdpIdToUser } = this.props;
+  state = {
+    cpdId: ''
+  };
 
+  addCdpIdToUser() {
+    this.props.addCdpIdToUser(this.state.cpdId);
+    this.setState({ cpdId: '' });
+  }
+
+  render() {
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -28,12 +35,13 @@ export default class AddCDP extends Component<Props> {
           <input
             type="text"
             placeholder="Enter CPD"
+            value={this.state.cpdId}
             onChange={e => this.setState({ cpdId: e.target.value })}
           />
           <input
             type="button"
             value="Add CPD"
-            onClick={() => addCdpIdToUser(this.state.cpdId)}
+            onClick={() => this.addCdpIdToUser()}
           />
         </div>
       </div>
