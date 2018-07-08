@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { getLiqPrice, getDaiToWithdraw, getPethToFree } from '../utils/cdp';
 
 class CDPListItem extends Component<Props> {
   props: Props;
+
+  static contextTypes = {
+    router: PropTypes.shape({
+      history: PropTypes.shape({
+        push: PropTypes.func.isRequired,
+        replace: PropTypes.func.isRequired
+      }).isRequired,
+      staticContext: PropTypes.object
+    }).isRequired
+  };
+
+  handleClick = () => {
+    this.context.router.history.push(`/cdp/${this.props.id}`);
+  };
 
   render() {
     if (this.props.feedCDP && this.props.feedCDP.loading) {
@@ -21,11 +37,11 @@ class CDPListItem extends Component<Props> {
         getCup: { id, art, ink, ratio, pip, tab }
       }
     } = this.props;
-    const liq = (pip / ratio) * 150;
-    const dai = tab / 1.5 - art;
-    const peth = (dai / pip) * 1.5;
+    const liq = getLiqPrice({ pip, ratio });
+    const dai = getDaiToWithdraw({ tab, art });
+    const peth = getPethToFree({ dai, pip });
     return (
-      <div>
+      <div onClick={this.handleClick} role="presentation">
         <p>ID: {id}</p>
         <p>Debt: {art} DAI</p>
         <p>Locked: {ink} PETH</p>

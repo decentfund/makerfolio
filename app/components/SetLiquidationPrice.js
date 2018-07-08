@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import styles from './Home.css';
 
 type Props = {
-  addCdpIdToUser: (cpdId: string) => void
+  setLiquidationPrice: (liquidationPrice: string) => void,
+  liquidationPrice: string
 };
 
-export default class AddCDP extends Component<Props> {
+export default class SetLiquidationPrice extends Component<Props> {
   props: Props;
 
   state = {
-    cpdId: ''
+    liquidationPrice: ''
   };
 
-  addCdpIdToUser() {
-    this.props.addCdpIdToUser(this.state.cpdId);
-    this.setState({ cpdId: '' });
+  setLiquidationPrice() {
+    this.props.setLiquidationPrice(this.state.liquidationPrice);
   }
 
   render() {
@@ -28,20 +28,20 @@ export default class AddCDP extends Component<Props> {
           </Link>
         </div>
         <div className={styles.container} data-tid="container">
-          <p>Add CDP Here</p>
+          <p>Liquidation Price</p>
           <br />
           <br />
           <br />
           <input
             type="text"
-            placeholder="Enter CDP"
-            value={this.state.cpdId}
-            onChange={e => this.setState({ cpdId: e.target.value })}
+            placeholder="Enter Liquidation Price"
+            value={this.props.liquidationPrice}
+            onChange={e => this.setState({ liquidationPrice: e.target.value })}
           />
           <input
             type="button"
-            value="Add CDP"
-            onClick={() => this.addCdpIdToUser()}
+            value="Save"
+            onClick={() => this.setLiquidationPrice()}
           />
         </div>
       </div>
