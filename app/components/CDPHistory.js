@@ -2,17 +2,28 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
+// eslint-disable-next-line prefer-destructuring
+const shell = require('electron').shell;
+
 type Props = {
   actions: Array<{
     act: 'OPEN' | 'WIPE' | 'DRAW' | 'FREE' | 'LOCK' | 'SHUT',
     arg: string,
     time: string,
-    pip: string
+    pip: string,
+    tx: string
   }>
 };
 
+const getLink = tx => `https://etherscan.io/tx/${tx}`;
+
 export default class CDPHistory extends Component<Props> {
   props: Props;
+
+  handleTxClick = (event: any, tx: string) => {
+    event.preventDefault();
+    shell.openExternal(getLink(tx));
+  };
 
   render() {
     return (
@@ -37,7 +48,14 @@ export default class CDPHistory extends Component<Props> {
                 )
                 .map(action => (
                   <tr>
-                    <td>{moment(action.time).format('DD-MM-YYYY HH:mm')}</td>
+                    <td>
+                      <a
+                        href={getLink(action.tx)}
+                        onClick={event => this.handleTxClick(event, action.tx)}
+                      >
+                        {moment(action.time).format('DD-MM-YYYY HH:mm')}
+                      </a>
+                    </td>
                     <td>{action.act}</td>
                     <td>{action.arg}</td>
                     <td>{action.pip} USD</td>
