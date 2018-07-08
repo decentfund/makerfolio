@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CDPListItem from './CDPListItem';
-import styles from './Home.css';
 import { CDPHeader, OtherHeaders } from './CDPListStyles';
 
 class CDPList extends Component<Props> {
@@ -11,10 +10,8 @@ class CDPList extends Component<Props> {
     const { cdpIds } = this.props;
     return (
       <div>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
+        <div data-tid="backButton">
+          <Link to="/">Back</Link>
         </div>
         <div data-tid="history">
           <br />

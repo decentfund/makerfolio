@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Home.css';
 
 type Props = {
   liq: number,
@@ -19,12 +18,10 @@ export default class CDPDetail extends Component<Props> {
     const { liq, dai, peth, art, ink, onDeleteClick } = this.props;
     return (
       <div>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
+        <div data-tid="backButton">
+          <Link to="/">Back</Link>
         </div>
-        <div className={styles.container} data-tid="container">
+        <div data-tid="container">
           <p>CDP Detail</p>
           <button onClick={onDeleteClick}>Delete</button>
           <div>
