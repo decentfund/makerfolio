@@ -30,6 +30,46 @@ export const Column = styled.div`
   text-align: right;
 `;
 
+export const WarnMe = styled.div`
+  /* warn me when LP */
+
+  width: 111px;
+  height: 17px;
+  left: 686px;
+  top: 197px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 14px;
+
+  color: #000000;
+`;
+
+export const SyledInput = styled.input`
+  /* Rectangle 2.8 */
+
+  width: 107px;
+  height: 21px;
+  left: 903px;
+  top: 195px;
+
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 4px;
+`;
+
+export const DropsBelowOrRaisedAbove = styled.div`
+  /* Rectangle 2.7 */
+
+  width: 92px;
+  height: 20px;
+
+  background: rgba(0, 0, 0, 0.07);
+  border-radius: 4px;
+`;
+
 export const OtherHeaders = styled.div`
   font-size: 14px;
 
