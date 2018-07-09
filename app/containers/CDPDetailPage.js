@@ -2,9 +2,8 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import CDPDetail from '../components/CDPDetail';
 import CDPHistory from './CDPHistoryPage';
-import { getLiqPrice, getDaiToWithdraw, getPethToFree } from '../utils/cdp';
+import CDPStatistics from './CDPStatistics';
 
 type Props = {
   feedCDP: {
@@ -39,21 +38,11 @@ class CDPDetailPage extends Component<Props> {
     )
       return <div>Error</div>;
 
-    const { art, ink, ratio, pip, tab, id } = this.props.feedCDP.getCup;
-    const liq = getLiqPrice({ pip, ratio });
-    const dai = getDaiToWithdraw({ tab, art });
-    const peth = getPethToFree({ dai, pip });
+    const { id } = this.props.feedCDP.getCup;
     return (
       <div>
-        <CDPDetail
-          liq={liq}
-          art={art}
-          ink={ink}
-          peth={peth}
-          dai={dai}
-          id={id}
-        />
         <CDPHistory id={id} />
+        <CDPStatistics id={id} />
       </div>
     );
   }
