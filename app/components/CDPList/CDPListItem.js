@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { getLiqPrice, getDaiToWithdraw, getPethToFree } from '../utils/cdp';
+import { Route } from 'react-router';
+import {
+  getLiqPrice,
+  getDaiToWithdraw,
+  getPethToFree,
+  formatCurrency
+} from '../../utils/cdp';
+import { CDPId, Column, CDPHeaderGroup, ListItem } from './CDPListStyles';
+import CDPDetail from '../../containers/CDPDetailPage';
 
 class CDPListItem extends Component<Props> {
   props: Props;
@@ -41,14 +49,28 @@ class CDPListItem extends Component<Props> {
     const dai = getDaiToWithdraw({ tab, art });
     const peth = getPethToFree({ dai, pip });
     return (
-      <tr onClick={this.handleClick} role="presentation">
-        <td>{id}</td>
-        <td>{art} DAI</td>
-        <td>{dai} DAI</td>
-        <td>{ink} PETH</td>
-        <td>{peth}</td>
-        <td>{liq}</td>
-      </tr>
+      <div>
+        <ListItem onClick={this.handleClick} role="presentation">
+          <CDPId>{id}</CDPId>
+          <CDPHeaderGroup>
+            <Column>{formatCurrency(art, 'DAI')}</Column>
+            <Column className="light">{formatCurrency(dai, 'DAI')}</Column>
+          </CDPHeaderGroup>
+          <CDPHeaderGroup>
+            <Column>{formatCurrency(ink, 'ETH')}</Column>
+            <Column className="light">{formatCurrency(peth, 'ETH')}</Column>
+          </CDPHeaderGroup>
+          <Column>{formatCurrency(liq, 'USD')}</Column>
+        </ListItem>
+        <Route
+          path="/cdp/:id"
+          render={props => {
+            if (id === parseInt(props.match.params.id, 10))
+              return <CDPDetail {...props} />;
+            return null;
+          }}
+        />
+      </div>
     );
   }
 }
@@ -83,5 +105,8 @@ export const FEED_CDP = gql`
 
 export default graphql(FEED_CDP, {
   name: 'feedCDP',
-  options: ({ id }) => ({ variables: { id: parseInt(id, 10) } })
+  options: ({ id }) => ({
+    variables: { id: parseInt(id, 10) },
+    pollInterval: 3000
+  })
 })(CDPListItem);

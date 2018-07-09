@@ -1,12 +1,13 @@
 // @flow
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import CDPHistory from './CDPHistoryPage';
-import { removeCdpIdFromUser } from '../actions/user';
-import CDPStatistics from './CDPStatistics';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+import CDPHistory from "./CDPHistoryPage";
+import { removeCdpIdFromUser } from "../actions/user";
+import CDPStatistics from "./CDPStatistics";
 
 type Props = {
   removeCdpIdFromUser: (cpdId: string) => void,
@@ -29,6 +30,17 @@ type Props = {
   }
 };
 
+const StyledDeleteButton = styled.button`
+  background: rgba(0, 0, 0, 0.07);
+  padding: 6px 10px;
+  color: #d03434;
+  border: 0px;
+  border-radius: 4px;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+`;
+
 class CDPDetailPage extends Component<Props> {
   props: Props;
 
@@ -49,7 +61,7 @@ class CDPDetailPage extends Component<Props> {
       }
     } = this.props;
     this.props.removeCdpIdFromUser(id);
-    this.context.router.history.push('/');
+    this.context.router.history.push("/");
   };
 
   render() {
@@ -69,9 +81,12 @@ class CDPDetailPage extends Component<Props> {
 
     const { id } = this.props.feedCDP.getCup;
     return (
-      <div>
+      <div style={{ position: "relative" }}>
         <CDPHistory id={id} />
         <CDPStatistics id={id} />
+        <StyledDeleteButton onClick={this.handleDeleteCdpClick}>
+          Remove CDP {id}
+        </StyledDeleteButton>
       </div>
     );
   }
@@ -107,7 +122,7 @@ export const FEED_CDP = gql`
 
 export default connect(null, { removeCdpIdFromUser })(
   graphql(FEED_CDP, {
-    name: 'feedCDP',
+    name: "feedCDP",
     options: ({
       match: {
         params: { id }

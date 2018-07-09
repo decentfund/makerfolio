@@ -6,7 +6,7 @@ export default function cpdIds(state = [], action) {
   switch (action.type) {
     case ADD_CDP_ID_TO_USER: {
       if (!state.includes(action.cpdId)) {
-        state.push(action.cpdId);
+        return [...state, action.cpdId];
       }
       return state;
     }

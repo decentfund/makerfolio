@@ -25,7 +25,6 @@ export default () => (
         <Route path="/cdpList" component={CDPListPage} />
         <Route path="/addCDP" component={AddCDPPage} />
         <Route path="/setLiquidationPrice" omponent={SetLiquidationPricePage} />
-        <Route path="/cdp/:id" component={CDPDetailPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </App>

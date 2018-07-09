@@ -1,6 +1,8 @@
 // @flow
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import CDPList from './CDPList';
+import AddCDP from '../containers/AddCDPPage';
 
 export default class Home extends Component<Props> {
   props: Props;
@@ -8,9 +10,8 @@ export default class Home extends Component<Props> {
   render() {
     return (
       <div data-tid="container">
-        <h2>Home hello</h2>
-        <Link to="/addCDP">Add CDP</Link>
-        <br />
+        <AddCDP />
+        <CDPList />
         <Link to="/CDPList">CDP List</Link>
         <br />
         <Link to="/setLiquidationPrice">Set Liquidation Price</Link>
