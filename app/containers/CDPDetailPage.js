@@ -9,6 +9,9 @@ import CDPHistory from './CDPHistoryPage';
 import { removeCdpIdFromUser } from '../actions/user';
 import CDPStatistics from './CDPStatistics';
 
+// eslint-disable-next-line prefer-destructuring
+const shell = require('electron').shell;
+
 type Props = {
   removeCdpIdFromUser: (cpdId: string) => void,
   feedCDP: {
@@ -38,8 +41,16 @@ const StyledDeleteButton = styled.button`
   border-radius: 4px;
   position: absolute;
   right: 0px;
+  bottom: 40px;
+`;
+
+const StyledLink = styled.a`
+  position: absolute;
+  right: 0px;
   bottom: 0px;
 `;
+
+const getLink = id => `https://mkr.tools/cdp/${id}`;
 
 class CDPDetailPage extends Component<Props> {
   props: Props;
@@ -62,6 +73,11 @@ class CDPDetailPage extends Component<Props> {
     } = this.props;
     this.props.removeCdpIdFromUser(id);
     this.context.router.history.push('/');
+  };
+
+  handleOpenLink = event => {
+    event.preventDefault();
+    shell.openExternal(getLink(this.props.match.params.id));
   };
 
   render() {
@@ -88,6 +104,12 @@ class CDPDetailPage extends Component<Props> {
           art={art}
           style={{ position: 'absolute', top: 0, right: 0 }}
         />
+        <StyledLink
+          href={`https://mkr.tools/cdp/${id}`}
+          onClick={event => this.handleOpenLink(event)}
+        >
+          https://mkr.tools/cdp/{id}
+        </StyledLink>
         <StyledDeleteButton onClick={this.handleDeleteCdpClick}>
           Remove CDP {id}
         </StyledDeleteButton>
