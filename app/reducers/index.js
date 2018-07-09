@@ -4,8 +4,10 @@ import { routerReducer as router } from 'react-router-redux';
 import transactions from './transactions';
 import user from './user';
 import settings from './settings';
+import oracle from './oracle';
 
 const rootReducer = combineReducers({
+  oracle,
   router,
   settings,
   transactions,

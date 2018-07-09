@@ -28,7 +28,8 @@ type Props = {
   },
   transactions: Object,
   art: string,
-  style: Object
+  style: Object,
+  rate: string
 };
 
 class CDPStatistics extends Component<Props> {
@@ -49,7 +50,7 @@ class CDPStatistics extends Component<Props> {
     )
       return <div>Error</div>;
 
-    const { transactions, style, art } = this.props;
+    const { transactions, style, art, rate } = this.props;
     const { nodes: actions = [] } = this.props.actions.allCupActs;
     const mergedActions = actions.map(a => ({ ...a, ...transactions[a.tx] }));
     const lockCap = evaluatePETHPrice(
@@ -69,10 +70,10 @@ class CDPStatistics extends Component<Props> {
       totalLock,
       capLock: lockCap
     });
-    const profit = getUserProfit({ art, totalLock, price: 502 });
+    const profit = getUserProfit({ art, totalLock, price: rate });
     return (
       <Statistics
-        lockCap={lockCap}
+        lockCap={lockCap * rate}
         lockCapByTime={lockCapByTime}
         margin={margin}
         freePrice={freePrice}
@@ -98,7 +99,10 @@ export const ACTIONS = gql`
   }
 `;
 
-const mapStateToProps = state => ({ transactions: state.transactions });
+const mapStateToProps = state => ({
+  transactions: state.transactions,
+  rate: state.oracle
+});
 
 export default connect(mapStateToProps)(
   graphql(ACTIONS, {

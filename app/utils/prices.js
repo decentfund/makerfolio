@@ -21,7 +21,7 @@ export function marginReinvestment(operations) {
 }
 
 export const getEthPriceForFreeDebt = ({ art, gov = 0, totalLock, capLock }) =>
-  (art + gov) / (totalLock - capLock);
+  (parseFloat(art) + gov) / (totalLock - capLock);
 
 export const getUserProfit = ({ art, gov = 0, totalLock, price }) =>
   totalLock * price - art - gov;

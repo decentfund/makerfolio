@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CDPList from './CDPList';
 import AddCDP from '../containers/AddCDPPage';
+import Oracle from './Oracle';
 
 export default class Home extends Component<Props> {
   props: Props;
@@ -10,6 +11,7 @@ export default class Home extends Component<Props> {
   render() {
     return (
       <div data-tid="container">
+        <Oracle />
         <AddCDP />
         <CDPList />
         <Link to="/CDPList">CDP List</Link>
