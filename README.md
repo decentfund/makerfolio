@@ -1,6 +1,15 @@
 Makerfolio
 ========
 
+## To start app run:
+
+`yarn && yarn dev`
+
+## Further steps
+- Finalize alerts
+- Fix production ready build
+- Add controls to dynamically model market situation and plan your actions
+
 ## Problems definition
 - Current MakerDAO UI is pretty difficult to read and use.
 - There's lack of critical user notifications.
