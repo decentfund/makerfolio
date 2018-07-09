@@ -26,7 +26,9 @@ type Props = {
       }>
     }
   },
-  transactions: Object
+  transactions: Object,
+  art: string,
+  style: Object
 };
 
 class CDPStatistics extends Component<Props> {
@@ -47,10 +49,9 @@ class CDPStatistics extends Component<Props> {
     )
       return <div>Error</div>;
 
-    const { transactions } = this.props;
+    const { transactions, style, art } = this.props;
     const { nodes: actions = [] } = this.props.actions.allCupActs;
     const mergedActions = actions.map(a => ({ ...a, ...transactions[a.tx] }));
-    console.log(mergedActions.filter(a => a.act === 'LOCK'));
     const lockCap = evaluatePETHPrice(
       mergedActions.filter(a => a.act === 'LOCK')
     );
@@ -64,11 +65,11 @@ class CDPStatistics extends Component<Props> {
       .filter(a => a.act === 'LOCK')
       .reduce((total, price) => total + parseFloat(price.arg), 0);
     const freePrice = getEthPriceForFreeDebt({
-      art: 2900,
+      art,
       totalLock,
       capLock: lockCap
     });
-    const profit = getUserProfit({ art: 2900, totalLock, price: 502 });
+    const profit = getUserProfit({ art, totalLock, price: 502 });
     return (
       <Statistics
         lockCap={lockCap}
@@ -76,6 +77,7 @@ class CDPStatistics extends Component<Props> {
         margin={margin}
         freePrice={freePrice}
         profit={profit}
+        style={style}
       />
     );
   }
