@@ -16,7 +16,9 @@ import MenuBuilder from './menu';
 const path = require('path');
 
 const iconPath = path.join(__dirname, 'ico/iconHighlight@2x.png');
-app.dock.setIcon(path.join(__dirname, 'app-ico/app-ico-256.png'));
+if (app.dock) {
+  app.dock.setIcon(path.join(__dirname, 'app-ico/app-ico-256.png'));
+}
 let tray = null;
 
 let mainWindow = null;
@@ -90,18 +92,18 @@ app.on('ready', async () => {
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
 
-  // mainWindow.on('minimize', event => {
-  // event.preventDefault();
-  // mainWindow.hide();
-  // });
+  mainWindow.on('minimize', event => {
+    event.preventDefault();
+    mainWindow.hide();
+  });
 
-  // mainWindow.on('close', event => {
-  // if (!app.isQuiting) {
-  // event.preventDefault();
-  // mainWindow.hide();
-  // }
-  // return false;
-  // });
+  mainWindow.on('close', event => {
+    if (!app.isQuiting) {
+      event.preventDefault();
+      mainWindow.hide();
+    }
+    return false;
+  });
 
   tray = new Tray(iconPath);
   tray.setToolTip('Makerfolio');
