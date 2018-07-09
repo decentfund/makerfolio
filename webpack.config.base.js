@@ -45,6 +45,11 @@ export default {
             cacheDirectory: true
           }
         }
+      },
+      {
+        type: 'javascript/auto',
+        test: /\.mjs$/,
+        use: []
       }
     ]
   },
