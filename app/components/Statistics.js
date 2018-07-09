@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 type Props = {
-  lockCap: PropTypes.string,
-  lockCapByTime: PropTypes.string,
-  margin: PropTypes.string,
-  freePrice: PropTypes.string,
-  profit: PropTypes.string
+  lockCap: number,
+  lockCapByTime: number,
+  margin: number,
+  freePrice: number,
+  profit: number
 };
 
 const Statistics = ({
