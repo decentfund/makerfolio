@@ -1,9 +1,32 @@
 Makerfolio
 ========
 
-## To start app run:
+## Install
 
-`yarn && yarn dev`
+* **Note: requires a node version >= 7 and an npm version >= 4.**
+* **If you have installation or compilation issues with this project, please see [our debugging guide](https://github.com/chentsulin/electron-react-boilerplate/issues/400)**
+
+First, clone the repo via git:
+
+```bash
+git clone --depth=1 https://source.deco.network/decentfund/entry-hacksummit-makerfolio.git
+```
+
+And then install dependencies with yarn.
+
+```bash
+$ cd entry-hacksummit-makerfolio
+$ yarn
+```
+**Note**: If you can't use [yarn](https://github.com/yarnpkg/yarn), run `npm install`.
+
+## Run
+
+Start the app in the `dev` environment. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
+
+```bash
+$ npm run dev
+```
 
 ## Further steps
 - Finalize alerts
@@ -50,6 +73,14 @@ as a user
 - I see additional perfomance statistics such as my CDP invesment evaluation using current price, my actual investment in usd, what's my margin gain, my speculative earnings, what ethereum price should be to pay off CDP
 - I can set, change and delete an alert for liquidation price and receive it as a desktop notification
 - I can change oracle price to model my stats by that price and I can reset it to actual SC
+
+## Aditional materials
+Formulas for perfomance evaluation
+![](https://i.imgur.com/WfpAP9Y.jpg)
+
+Mockup
+![](https://i.imgur.com/Ty6Bn7t.jpg)
+
 
 ## Challenge details
 
