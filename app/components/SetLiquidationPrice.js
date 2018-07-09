@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Home.css';
 
 type Props = {
   setLiquidationPrice: (liquidationPrice: string) => void,
@@ -22,12 +21,10 @@ export default class SetLiquidationPrice extends Component<Props> {
   render() {
     return (
       <div>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
+        <div data-tid="backButton">
+          <Link to="/">Back</Link>
         </div>
-        <div className={styles.container} data-tid="container">
+        <div data-tid="container">
           <p>Liquidation Price</p>
           <br />
           <br />

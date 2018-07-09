@@ -1,11 +1,41 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Home.css';
+import styled from 'styled-components';
 
 type Props = {
   addCdpIdToUser: (cpdId: string) => void
 };
+
+const StyledContainer = styled.div`
+  float: right;
+`;
+
+const StyledButton = styled.button`
+  background-color: #3c84ad;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+  height: 29px;
+  line-height: 29px;
+  padding: 0 20px;
+`;
+
+const StyledConnectedButton = StyledButton.extend`
+  border-radius: 0 4px 4px 0;
+`;
+
+const StyledInput = styled.input`
+  border: 1px solid #000;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  padding: 0px 10px;
+  height: 27px;
+  line-height: 2px;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 export default class AddCDP extends Component<Props> {
   props: Props;
@@ -16,7 +46,7 @@ export default class AddCDP extends Component<Props> {
 
   addCdpIdToUser() {
     this.props.addCdpIdToUser(this.state.cpdId);
-    this.setState({ cpdId: '' });
+    this.setState({ cpdId: '', open: false });
     const myNotification = new Notification('Yo', {
       body: 'New CDP Added'
     });
@@ -25,32 +55,29 @@ export default class AddCDP extends Component<Props> {
     };
   }
 
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
   render() {
     return (
-      <div>
-        <div className={styles.backButton} data-tid="backButton">
-          <Link to="/">
-            <i className="fa fa-arrow-left fa-3x" />
-          </Link>
-        </div>
-        <div className={styles.container} data-tid="container">
-          <p>Add CDP Here</p>
-          <br />
-          <br />
-          <br />
-          <input
-            type="text"
-            placeholder="Enter CDP"
-            value={this.state.cpdId}
-            onChange={e => this.setState({ cpdId: e.target.value })}
-          />
-          <input
-            type="button"
-            value="Add CDP"
-            onClick={() => this.addCdpIdToUser()}
-          />
-        </div>
-      </div>
+      <StyledContainer>
+        {this.state.open ? (
+          <div>
+            <StyledInput
+              type="text"
+              placeholder="enter ID"
+              value={this.state.cpdId}
+              onChange={e => this.setState({ cpdId: e.target.value })}
+            />
+            <StyledConnectedButton onClick={() => this.addCdpIdToUser()}>
+              Import
+            </StyledConnectedButton>
+          </div>
+        ) : (
+          <StyledButton onClick={this.handleOpen}>Import CDP</StyledButton>
+        )}
+      </StyledContainer>
     );
   }
 }

@@ -6,7 +6,6 @@ import { ApolloProvider } from 'react-apollo';
 import { Switch, Route } from 'react-router';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
-import CounterPage from './containers/CounterPage';
 import AddCDPPage from './containers/AddCDPPage';
 import SetLiquidationPricePage from './containers/SetLiquidationPricePage';
 import CDPHistoryPage from './containers/CDPHistoryPage';
@@ -21,13 +20,11 @@ export default () => (
   <ApolloProvider client={client}>
     <App>
       <Switch>
-        <Route path="/counter" component={CounterPage} />
         <Route path="/cdpHistory" component={CDPHistoryPage} />
         <Route path="/cdpDetail" component={CDPDetailPage} />
         <Route path="/cdpList" component={CDPListPage} />
         <Route path="/addCDP" component={AddCDPPage} />
         <Route path="/setLiquidationPrice" omponent={SetLiquidationPricePage} />
-        <Route path="/cdp/:id" component={CDPDetailPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </App>

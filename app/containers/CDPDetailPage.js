@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import CDPDetail from '../components/CDPDetail';
 import CDPHistory from './CDPHistoryPage';
-import { getLiqPrice, getDaiToWithdraw, getPethToFree } from '../utils/cdp';
 import { removeCdpIdFromUser } from '../actions/user';
+import CDPStatistics from './CDPStatistics';
 
 type Props = {
   removeCdpIdFromUser: (cpdId: string) => void,
@@ -29,6 +29,17 @@ type Props = {
     }
   }
 };
+
+const StyledDeleteButton = styled.button`
+  background: rgba(0, 0, 0, 0.07);
+  padding: 6px 10px;
+  color: #d03434;
+  border: 0px;
+  border-radius: 4px;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+`;
 
 class CDPDetailPage extends Component<Props> {
   props: Props;
@@ -68,22 +79,18 @@ class CDPDetailPage extends Component<Props> {
     )
       return <div>Error</div>;
 
-    const { art, ink, ratio, pip, tab, id } = this.props.feedCDP.getCup;
-    const liq = getLiqPrice({ pip, ratio });
-    const dai = getDaiToWithdraw({ tab, art });
-    const peth = getPethToFree({ dai, pip });
+    const { id, art } = this.props.feedCDP.getCup;
     return (
-      <div>
-        <CDPDetail
-          liq={liq}
-          art={art}
-          ink={ink}
-          peth={peth}
-          dai={dai}
-          id={id}
-          onDeleteClick={this.handleDeleteCdpClick}
-        />
+      <div style={{ position: 'relative', 'min-height': 263 }}>
         <CDPHistory id={id} />
+        <CDPStatistics
+          id={id}
+          art={art}
+          style={{ position: 'absolute', top: 0, right: 0 }}
+        />
+        <StyledDeleteButton onClick={this.handleDeleteCdpClick}>
+          Remove CDP {id}
+        </StyledDeleteButton>
       </div>
     );
   }
@@ -117,13 +124,7 @@ export const FEED_CDP = gql`
   }
 `;
 
-function mapStateToProps(state) {
-  return {
-    counter: state.counter
-  };
-}
-
-export default connect(mapStateToProps, { removeCdpIdFromUser })(
+export default connect(null, { removeCdpIdFromUser })(
   graphql(FEED_CDP, {
     name: 'feedCDP',
     options: ({
