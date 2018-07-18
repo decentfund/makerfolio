@@ -52,8 +52,9 @@ const StyledMargin = styled.div`
 const renderSum = (action, transaction) => {
   if (['DRAW', 'WIPE'].indexOf(action.act) >= 0) return action.arg;
 
-  if (action.act === 'LOCK')
-    return parseFloat(transaction.price || action.arg) * parseFloat(action.pip);
+  if (action.act === 'LOCK') {
+    return parseFloat(action.arg) * parseFloat(transaction.price || action.pip);
+  }
 
   return parseFloat(action.arg) * parseFloat(action.pip) || '';
 };
