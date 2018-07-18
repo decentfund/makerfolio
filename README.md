@@ -38,17 +38,17 @@ $ npm run dev
 - There's lack of critical user notifications.
 - No way to see useful historical CDP information.
 ![](https://i.imgur.com/E9vGD74.jpg)
-- No way to understand you perfomance
+- No way to understand you performance
 - No way to simulate system parameters changes
 
-## User behaviour
+## User behavior
 User imports CDP through form using CDP id or address
 User can see status of particular CDP in a clear visual form
 User can set alert for liquidation price per CDP
 User can see history for CDP in a clear textual way
 User can see useful statistics for his CDP
 User can hide and display app clicking tray icon
-User sees list of imported CBDs
+User sees list of imported CDPs
 
 User sees global status of DAI system
 Tray icon displays overall status
