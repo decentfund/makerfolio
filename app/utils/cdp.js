@@ -25,5 +25,7 @@ export function formatCurrency(value, currency, precision = 0) {
         decimalPoints = 0;
     }
   }
-  return parseFloat(Math.round(value * 100) / 100).toFixed(decimalPoints);
+  return parseFloat(
+    Math.round(value * 10 ** decimalPoints) / 10 ** decimalPoints
+  ).toFixed(decimalPoints);
 }
