@@ -1,14 +1,17 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
-import { routerMiddleware, routerActions } from 'react-router-redux';
+import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import persistState from 'redux-localstorage';
-import rootReducer from '../reducers';
+import createRootReducer from '../reducers';
 import * as userActions from '../actions/user';
 import * as settingsActions from '../actions/settings';
+// TODO: Add reducer types
 
 const history = createHashHistory();
+
+const rootReducer = createRootReducer(history);
 
 const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration
@@ -46,7 +49,7 @@ const configureStore = (initialState?: counterStateType) => {
   /* eslint-disable no-underscore-dangle */
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Options: http://zalmoxisus.github.io/redux-devtools-extension/API/Arguments.html
+        // Options: http://extension.remotedev.io/docs/API/Arguments.html
         actionCreators
       })
     : compose;
@@ -62,7 +65,8 @@ const configureStore = (initialState?: counterStateType) => {
   if (module.hot) {
     module.hot.accept(
       '../reducers',
-      () => store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+      // eslint-disable-next-line global-require
+      () => store.replaceReducer(require('../reducers').default)
     );
   }
 

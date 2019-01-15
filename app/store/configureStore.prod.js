@@ -1,18 +1,19 @@
 // @flow
-import { createStore, applyMiddleware, composeEnhancers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router';
 import persistState from 'redux-localstorage';
-import rootReducer from '../reducers';
-import type { counterStateType } from '../reducers/counter';
+import createRootReducer from '../reducers';
+// TODO: Add reducers type
 
 const history = createHashHistory();
+const rootReducer = createRootReducer(history);
 const router = routerMiddleware(history);
 const stateLocalstorage = persistState();
 
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk, router, stateLocalstorage),
+const enhancer = compose(
+  applyMiddleware(thunk, router),
   stateLocalstorage
 );
 
