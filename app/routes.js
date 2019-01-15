@@ -13,7 +13,7 @@ import CDPDetailPage from './containers/CDPDetailPage';
 import CDPListPage from './containers/CDPListPage';
 
 const client = new ApolloClient({
-  uri: 'https://graphql.makerdao.com/v1'
+  uri: 'https://sai-mainnet.makerfoundation.com/v1'
 });
 
 export default () => (
